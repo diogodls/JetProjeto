@@ -1,6 +1,12 @@
 <template>
   <div>
-      eaeaea
+      <nav class="navbar">
+          <ul>
+              <li><a href=""> Dashboard</a></li>
+              <li><a href=""> Minhas Camisetas</a></li>
+              <li><a href=""> Meus usuários</a></li>
+          </ul>
+      </nav>
   </div>
 </template>
 

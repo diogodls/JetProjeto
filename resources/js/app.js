@@ -1,11 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import routes from "./routes.js";
+import Login from "./components/Login.vue";
 
-Vue.use(VueRouter)
-
- const app = new Vue({
-     el: '#app',
-     router: routes
- });
- 
+const app = new Vue({
+    el: '#app',
+    components:{
+        Login
+    },
+    router: VueRouter
+});
