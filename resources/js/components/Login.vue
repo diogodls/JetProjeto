@@ -1,8 +1,8 @@
 <template>
   <div>
 
-      <form class="form" method="POST" v-if="trocarForm">
-
+      <form class="form" action="/login" method="POST" v-if="trocarForm">
+        <input type="hidden" name="_token" :value="csrf_token">
         <h1 class="title">JetCamisas</h1>
 
         <label for="email">Digite o seu email:</label>
@@ -13,8 +13,8 @@
 
         <input type="submit" value="Entrar">
         <input type="submit" value="Registrar" @click.prevent="trocarFormulario()">
-
       </form>
+
 
       <form class="form" action="/register" method="POST" v-if="!trocarForm">
         <input type="hidden" name="_token" :value="csrf_token">

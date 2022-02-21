@@ -53,10 +53,11 @@ class LoginController extends Controller
             return redirect()
             ->route('login')
             ->with('warning', 'Email e/ou senha inválidos!');
-        }else{
-            return redirect()->route('home');
         }
 
+        if(Auth::attempt($data)){
+            return redirect()->route('home');
+        }
         
     }
 

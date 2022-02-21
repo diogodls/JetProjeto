@@ -608,33 +608,42 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _vm.trocarForm
-      ? _c("form", { staticClass: "form", attrs: { method: "POST" } }, [
-          _c("h1", { staticClass: "title" }, [_vm._v("JetCamisas")]),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "email" } }, [
-            _vm._v("Digite o seu email:"),
-          ]),
-          _vm._v(" "),
-          _c("input", { attrs: { type: "text", name: "email" } }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "password" } }, [
-            _vm._v("Digite sua senha:"),
-          ]),
-          _vm._v(" "),
-          _c("input", { attrs: { type: "password", name: "password" } }),
-          _vm._v(" "),
-          _c("input", { attrs: { type: "submit", value: "Entrar" } }),
-          _vm._v(" "),
-          _c("input", {
-            attrs: { type: "submit", value: "Registrar" },
-            on: {
-              click: function ($event) {
-                $event.preventDefault()
-                return _vm.trocarFormulario()
+      ? _c(
+          "form",
+          { staticClass: "form", attrs: { action: "/login", method: "POST" } },
+          [
+            _c("input", {
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf_token },
+            }),
+            _vm._v(" "),
+            _c("h1", { staticClass: "title" }, [_vm._v("JetCamisas")]),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "email" } }, [
+              _vm._v("Digite o seu email:"),
+            ]),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "text", name: "email" } }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "password" } }, [
+              _vm._v("Digite sua senha:"),
+            ]),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "password", name: "password" } }),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "submit", value: "Entrar" } }),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { type: "submit", value: "Registrar" },
+              on: {
+                click: function ($event) {
+                  $event.preventDefault()
+                  return _vm.trocarFormulario()
+                },
               },
-            },
-          }),
-        ])
+            }),
+          ]
+        )
       : _vm._e(),
     _vm._v(" "),
     !_vm.trocarForm
