@@ -1,7 +1,7 @@
-import VueRouter from "vue-router";
+
 import Home from "./components/Home.vue"
 
-export default new VueRouter({
+export default {
     mode: 'history',
 
     routes:[
@@ -11,4 +11,4 @@ export default new VueRouter({
         },
 
     ]
-})
+}
