@@ -22,8 +22,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login', [LoginController::class, 'authenticate']);
 
-Route::post('register', [RegisterController::class, 'validator']);
+Route::post('register', [RegisterController::class, 'register']);
 
 Route::get('logout', [LoginController::class, 'logout']);
+
 Auth::routes();
 

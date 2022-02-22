@@ -12,12 +12,44 @@
     
     <body>
        
-        <div id="app">
+     
+    <div id="app" class="is-flex is-flex-direction-column is-active">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <h1>JetCamisas</h1>
+            </div>
+    
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <router-link class="navbar-item" :to="{name: 'dashboard'}">
+                        Dashboard
+                    </router-link>
+    
+                    <router-link class="navbar-item" :to="{name: 'camisetas'}">
+                        Minhas camisetas
+                    </router-link>
+    
+                    <router-link class="navbar-item" :to="{name: 'usuarios'}">
+                        Meus usuários
+                    </router-link>
+          
+                </div>
+    
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a href="/logout" >Sair</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+  
+      
+        <div class="content" style="background:white">
             <router-view></router-view>
         </div>
-    
+  </div>
 
-        <script src="{{ mix('/js/app.js')}}"></script>
+    <script src="/js/app.js"></script>
         
     </body>
 </html>
