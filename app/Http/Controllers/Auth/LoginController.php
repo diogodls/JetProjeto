@@ -79,4 +79,5 @@ class LoginController extends Controller
             'password' => ['required', 'string', 'max:100', 'min:4']
         ]);
     }
+
 }
