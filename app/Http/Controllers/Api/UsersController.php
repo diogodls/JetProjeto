@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 
 class UsersController extends Controller
 {
@@ -59,12 +59,19 @@ class UsersController extends Controller
         return redirect()->route('home');
     }
 
+    public function destroy($id){
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('home');
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'max:100', 'confirmed'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:4', 'max:255', 'confirmed'],
         ]);
 
     }

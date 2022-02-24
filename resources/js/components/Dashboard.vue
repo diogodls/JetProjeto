@@ -12,7 +12,7 @@
                     <h3>Camisetas</h3>
                 </div>
                 <div class="card-body">
-                    <!---->
+                    <p>Total de camisetas no sistema: {{totalCamisetas}}</p>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                     <h3>Usuários</h3>
                 </div>
                 <div class="card-body">
-                    Total de usuários cadastrados: {{totalUsers}}
+                    <p>Total de usuários cadastrados: {{totalUsers}}</p>   
                 </div>
             </div>
         </div>
@@ -51,17 +51,22 @@ export default {
     data(){
         return{
             totalUsers: 0,
-            users: []
+            users: [],
+            totalCamisetas: 0,
         }
     },
     methods:{
         getInfo(){
-            axios.get("http://127.0.0.1:8000/api/users")
+            axios.get("/api/users")
             .then((response) => {
                 console.log(response)
                 this.users = response.data
                 console.log(this.users)
                 this.totalUsers = this.users.length
+            });
+            axios.get("/api/camisetas")
+            .then((response) => {  
+                this.totalCamisetas = response.data.length
             });
         }
     },

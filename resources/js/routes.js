@@ -1,6 +1,8 @@
 import Dashboard from "./components/Dashboard.vue"
 import Camisetas from "./components/Camisetas.vue"
 import Usuarios from "./components/Usuarios.vue"
+import NovaCamiseta from "./components/NovaCamiseta.vue"
+import VerCamiseta from "./components/VerCamiseta.vue"
 
 export default {
     mode: 'history',
@@ -14,13 +16,25 @@ export default {
         {
             path:'/camisetas',
             component: Camisetas,
-            name:'camisetas'
+            name:'camisetas',    
         },
         {
             path:'/usuarios',
             component: Usuarios,
             name:'usuarios'
+        },
+        {
+            path:'/nova-camiseta',
+            component: NovaCamiseta,
+            name:'nova-camiseta'
+        },
+        {
+            path:'/ver-camiseta',
+            component: VerCamiseta,
+            name:'ver-camiseta'
         }
+
+        
 
 
     ]

@@ -24,9 +24,8 @@
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>
-                        <a href="">Ver</a>
                         <a href="">Editar</a>
-
+                         <button class="button is-danger" @click="deleteUser(user.id)">Excluir Usuário</button>
                     </td> 
                 </tr>
             </tbody>
@@ -56,6 +55,14 @@ export default {
                 console.log(response)
                 this.users = response.data
             });
+        },
+        deleteUser(id){
+            let resultado = confirm('Você deseja mesmo excluir o usuário?');
+            if(resultado){
+                axios.delete(`/api/users/${id}`)
+                this.getUsers()
+            }
+            
         }
     },
     created(){

@@ -21,5 +21,9 @@ Route::middleware('auth:sanctum')->get('/api', function (Request $request) {
 });
 
 Route::get('camisetas', [ShirtsController::class, 'index']);
+Route::post('camisetas', [ShirtsController::class, 'createShirt']);
+Route::get('camiseta/{id}', [ShirtsController::class, 'seeShirt']);
+Route::delete('camiseta/{id}', [ShirtsController::class, 'destroy']);
 
 Route::get('users', [UsersController::class, 'index']);
+Route::delete('users/{id}', [UsersController::class, 'destroy']);

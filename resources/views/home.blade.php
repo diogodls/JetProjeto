@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Página Principal</title>
 
        <link rel="stylesheet" href="{{asset('css/app.css')}}">
@@ -13,10 +13,10 @@
     <body>
        
      
-    <div id="app" class="is-flex is-flex-direction-column is-active">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div id="app" class="is-flex is-flex-direction-column ">
+        <nav class="navbar is-active" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <h1>JetCamisas</h1>
+                <h1><a href="/">JetCamisas</a> </h1>
             </div>
     
             <div class="navbar-menu">
