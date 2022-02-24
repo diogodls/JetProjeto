@@ -71,7 +71,7 @@ class UsersController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'max:255', 'confirmed'],
+            'password' => ['required', 'string', 'between:4,255', 'confirmed'],
         ]);
 
     }
