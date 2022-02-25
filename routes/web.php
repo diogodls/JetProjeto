@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Api\UsersController;
 
 
 /*
@@ -17,13 +16,17 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('login', [LoginController::class, 'index'])->name('login');
-Route::post('login', [LoginController::class, 'authenticate']);
 
-Route::post('register', [RegisterController::class, 'validator']);
 
-Route::get('logout', [LoginController::class, 'logout']);
+Route::get('login', [UsersController::class, 'index'])->name('login');
+Route::post('login', [UsersController::class, 'loginUser']);
+
+Route::post('register', [UsersController::class, 'registerUser']);
+
+Route::get('logout', [UsersController::class, 'logout']);
+
 Auth::routes();
 
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
