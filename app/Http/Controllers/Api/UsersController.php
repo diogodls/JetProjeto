@@ -63,7 +63,9 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('home');
+        Auth::logout();
+        
+        return redirect()->route('login');
     }
 
     protected function validator(array $data)

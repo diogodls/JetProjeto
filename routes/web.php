@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\UsersController;
 
 
@@ -27,6 +28,5 @@ Route::post('register', [UsersController::class, 'registerUser']);
 Route::get('logout', [UsersController::class, 'logout']);
 
 Auth::routes();
-
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

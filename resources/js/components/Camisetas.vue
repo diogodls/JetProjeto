@@ -32,18 +32,6 @@
         </table>
       </div>
 
-      <div class="container card mt-5 infocard"  v-if="shirtsInfo">
-          <p>Modelo da camiseta: {{shirtsInfo.modelo}}</p>
-          <p>Marca da camiseta: {{shirtsInfo.brand}}</p>
-          <p>Descrição da camiseta: {{shirtsInfo.description}}</p>
-          <p>Número de pesquisa da camiseta: {{shirtsInfo.id}}</p>
-          <p>Preço: R$ {{shirtsInfo.price}}</p>
-
-          <button class="button is-danger">Fechar Informações</button>        
-      </div> 
- 
-      
-
       <router-view></router-view>
 
   </div>
@@ -66,10 +54,7 @@ export default {
             });
         },
         seeShirt(id){
-            axios.get(`/api/camiseta/${id}`)
-            .then(response => {
-               this.shirtsInfo = response.data
-            })
+            this.$router.push({path: `/ver_camiseta/${id}`})
         },
         deleteShirt(id){
             let resultado = confirm('Você deseja mesmo excluir esta camiseta?');

@@ -15,7 +15,7 @@ class CreateShirtsTable extends Migration
     {
         Schema::create('shirts', function (Blueprint $table) {
             $table->id();
-            $table->string('modelo')->unique();
+            $table->string('modelo');
             $table->text('description');
             $table->string('price');
             $table->string('brand');

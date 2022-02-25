@@ -16,12 +16,13 @@ import axios from "axios"
 export default {
     data(){
         return{
-            shirtsInfo: []
+            shirtsInfo: [],
+            shirtId: this.$route.params.id
         }
     },
     methods:{
-        seeShirt(id){
-            axios.get(`/api/camiseta/${id}`)
+        seeShirt(){
+            axios.get(`/api/camiseta/${this.shirtId}`)
             .then(response => {
                this.shirtsInfo = response.data
             })
@@ -29,6 +30,7 @@ export default {
     },
     created(){
         this.seeShirt()
+        
     }
 }
 </script>

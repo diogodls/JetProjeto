@@ -24,12 +24,12 @@ export default {
             name:'usuarios'
         },
         {
-            path:'/nova-camiseta',
+            path:'/nova_camiseta',
             component: NovaCamiseta,
             name:'nova-camiseta'
         },
         {
-            path:'/ver-camiseta',
+            path:'/ver_camiseta/:id',
             component: VerCamiseta,
             name:'ver-camiseta'
         }
