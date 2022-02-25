@@ -8,6 +8,7 @@ use App\Models\Shirt;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
+
 class ShirtsController extends Controller
 {
     public function index(){
@@ -21,6 +22,7 @@ class ShirtsController extends Controller
             'price',
             'brand'
         ]);
+
         $validator = $this->validator($data);
 
         if($validator->fails()){
@@ -56,7 +58,8 @@ class ShirtsController extends Controller
             'modelo' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric'],
-            'brand' => ['required', 'string', 'max:255']
+            'brand' => ['required', 'string', 'max:255'],
+            'brand' => ['required', 'string', 'max:255'],
         ]);
 
     }

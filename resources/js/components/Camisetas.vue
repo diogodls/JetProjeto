@@ -66,7 +66,10 @@ export default {
             });
         },
         seeShirt(id){
-            this.$router.push({path:`ver_camiseta/${id}`})
+            axios.get(`/api/camiseta/${id}`)
+            .then(response => {
+               this.shirtsInfo = response.data
+            })
         },
         deleteShirt(id){
             let resultado = confirm('Você deseja mesmo excluir esta camiseta?');

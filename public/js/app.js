@@ -2135,8 +2135,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     seeShirt: function seeShirt(id) {
-      this.$router.push({
-        path: "ver_camiseta/".concat(id)
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/camiseta/".concat(id)).then(function (response) {
+        _this2.shirtsInfo = response.data;
       });
     },
     deleteShirt: function deleteShirt(id) {
@@ -2349,16 +2351,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2368,22 +2360,16 @@ __webpack_require__.r(__webpack_exports__);
         modelo: '',
         description: '',
         price: '',
-        brand: '',
-        image: ''
+        brand: ''
       }
     };
   },
   methods: {
     submit: function submit() {
-      var formData = new FormData();
-      this.shirt.image = formData.set('image', this.shirt.image);
       axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/camisetas", this.shirt);
       this.$router.push({
         name: "camisetas"
       });
-    },
-    onChange: function onChange(e) {
-      this.shirt.image = e.target.files[0];
     }
   }
 });
@@ -2507,16 +2493,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      shirtsInfo: [],
-      shirtId: this.$route.params.id
+      shirtsInfo: []
     };
   },
   methods: {
-    seeShirt: function seeShirt() {
+    seeShirt: function seeShirt(id) {
       var _this = this;
 
-      console.log(this.shirtId);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/camiseta/".concat(this.shirtId)).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/camiseta/".concat(id)).then(function (response) {
         _this.shirtsInfo = response.data;
       });
     }
@@ -2591,14 +2575,13 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_Usuarios_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     name: 'usuarios'
   }, {
-    path: '/nova_camiseta',
+    path: '/nova-camiseta',
     component: _components_NovaCamiseta_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     name: 'nova-camiseta'
   }, {
-    path: '/ver_camiseta/:id',
+    path: '/ver-camiseta',
     component: _components_VerCamiseta_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    name: 'ver_camiseta',
-    props: true
+    name: 'ver-camiseta'
   }]
 });
 
@@ -4175,42 +4158,28 @@ var render = function () {
           domProps: { value: _vm.csrf },
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "imagem" } }, [
-            _vm._v("Imagem da camiseta:"),
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control-file",
-            attrs: { type: "file", id: "imagem", name: "imagem" },
-            on: { change: _vm.onChange },
-          }),
-        ]),
+        _c("label", { attrs: { for: "" } }, [_vm._v("Modelo:")]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Modelo:")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.shirt.modelo,
-                expression: "shirt.modelo",
-              },
-            ],
-            attrs: { type: "text", name: "modelo" },
-            domProps: { value: _vm.shirt.modelo },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.shirt, "modelo", $event.target.value)
-              },
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.shirt.modelo,
+              expression: "shirt.modelo",
             },
-          }),
-        ]),
+          ],
+          attrs: { type: "text", name: "modelo" },
+          domProps: { value: _vm.shirt.modelo },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.shirt, "modelo", $event.target.value)
+            },
+          },
+        }),
         _vm._v(" "),
         _c("label", { attrs: { for: "" } }, [_vm._v("Descrição:")]),
         _vm._v(" "),
@@ -4236,56 +4205,52 @@ var render = function () {
           },
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group mt-4" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Preço:")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.shirt.price,
-                expression: "shirt.price",
-              },
-            ],
-            attrs: { type: "number", step: "0.01", name: "price" },
-            domProps: { value: _vm.shirt.price },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.shirt, "price", $event.target.value)
-              },
-            },
-          }),
-        ]),
+        _c("label", { attrs: { for: "" } }, [_vm._v("Preço:")]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Marca:")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.shirt.brand,
-                expression: "shirt.brand",
-              },
-            ],
-            staticStyle: { "margin-bottom": "10px" },
-            attrs: { type: "text", name: "brand" },
-            domProps: { value: _vm.shirt.brand },
-            on: {
-              input: function ($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.shirt, "brand", $event.target.value)
-              },
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.shirt.price,
+              expression: "shirt.price",
             },
-          }),
-        ]),
+          ],
+          attrs: { type: "number", step: "0.01", name: "price" },
+          domProps: { value: _vm.shirt.price },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.shirt, "price", $event.target.value)
+            },
+          },
+        }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "" } }, [_vm._v("Marca:")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.shirt.brand,
+              expression: "shirt.brand",
+            },
+          ],
+          staticStyle: { "margin-bottom": "10px" },
+          attrs: { type: "text", name: "brand" },
+          domProps: { value: _vm.shirt.brand },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.shirt, "brand", $event.target.value)
+            },
+          },
+        }),
         _vm._v(" "),
         _c("input", {
           attrs: { type: "submit", value: "Adicionar Camiseta" },
@@ -4446,7 +4411,7 @@ var render = function () {
               "router-link",
               {
                 staticClass: "button is-danger",
-                attrs: { to: { name: "camisetas" } },
+                attrs: { to: { name: _vm.camisetas } },
               },
               [_vm._v("Fechar Informações")]
             ),

@@ -6,7 +6,6 @@
           <p>Descrição da camiseta: {{shirtsInfo.description}}</p>
           <p>Número de pesquisa da camiseta: {{shirtsInfo.id}}</p>
           <p>Preço: R$ {{shirtsInfo.price}}</p>
-
           <router-link class="button is-danger" :to="{name: 'camisetas'}">Fechar Informações</router-link>        
       </div> 
   </div>
@@ -17,17 +16,14 @@ import axios from "axios"
 export default {
     data(){
         return{
-            shirtsInfo: [],
-            shirtId: this.$route.params.id
+            shirtsInfo: []
         }
     },
     methods:{
-        seeShirt(){
-            console.log(this.shirtId)
-            axios.get(`/api/camiseta/${this.shirtId}`)
+        seeShirt(id){
+            axios.get(`/api/camiseta/${id}`)
             .then(response => {
                this.shirtsInfo = response.data
-               
             })
         },
     },
