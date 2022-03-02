@@ -20,10 +20,13 @@
         <div class="column">
             <div class="card">
                 <div class="card-header">
-                    <h3></h3>
+                    <h3>Modelos de camisetas cadastrados:</h3>
                 </div>
                 <div class="card-body">
-                    <!---->
+                    <span v-if="totalCamisetas === 0">Nenhum modelo cadastrado ainda!</span>
+                    <ul>
+                        <li v-for="(shirt, index) in shirts" :key="index">{{shirt.modelo}}</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -51,7 +54,7 @@ export default {
     data(){
         return{
             totalUsers: 0,
-            users: [],
+            shirts: [],
             totalCamisetas: 0,
         }
     },
@@ -59,14 +62,12 @@ export default {
         getInfo(){
             axios.get("/api/users")
             .then((response) => {
-                console.log(response)
-                this.users = response.data
-                console.log(this.users)
-                this.totalUsers = this.users.length
+                this.totalUsers = response.data.length
             });
             axios.get("/api/camisetas")
             .then((response) => {  
                 this.totalCamisetas = response.data.length
+                this.shirts = response.data
             });
         }
     },
@@ -76,6 +77,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.card-header{
+    padding: 9px;
+}
+.card-body{
+    padding: 9px;
+}
 
 </style>

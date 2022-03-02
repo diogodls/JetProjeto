@@ -7,7 +7,7 @@
             </header>
       </div>
 
-      <div class="shirt-list container card">
+      <div class="shirt-list container">
         <table class="table">
             <thead>
                 <tr>
@@ -48,7 +48,7 @@ export default {
     },
     methods:{
         getShirt(){
-            axios.get("http://127.0.0.1:8000/api/camisetas")
+            axios.get("/api/camisetas")
             .then((response) => {
                 this.shirts = response.data
             });

@@ -47,22 +47,24 @@ class LoginController extends Controller
             'password'
         ]);
 
-        $validator = $this->validator($data);
+        $validatorUser = Validator::make($data, [
+            'email' => ['email:filter', 'required'],
+            'password' => ['between:4,255', 'string', 'required']
+        ]);
 
-        if($validator->fails()){
-            return redirect()->route('login')
-            ->withInput()
-            ->withErrors($validator);
+        if($validatorUser->fails()){
+            $array['erros'] = $validatorUser->errors();
+
+            return response()->json($array, 422); 
         }
 
         if(Auth::attempt($data)){
             return redirect()->route('home');
         }else{
-            $validator->errors()->add('password', 'Email e/ou senha errados.');
+            $validatorUser->errors()->add('password', 'Email e/ou senha errados.');
 
-            return redirect()->route('login')
-            ->withErrors($validator)
-            ->withInput();
+            $array['erros'] = $validatorUser->errors();
+            return response()->json($array, 422); 
         }
         
     }

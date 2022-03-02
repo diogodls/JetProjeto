@@ -55,14 +55,13 @@ class RegisterController extends Controller
         $validator = $this->validator($data);
 
         if($validator->fails()){
-            return redirect()->route('login')
-            ->withErrors($validator)
-            ->withInput();
+            $array['error'] = $validator->errors();
+
+            return response()->json($array, 422); 
         }
 
         $user = $this->create($data);
         Auth::login($user);
-        return redirect()->route('home');
     }
 
     /**

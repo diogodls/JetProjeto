@@ -12,28 +12,35 @@ use Illuminate\Support\Facades\Validator;
 class UsersController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
     public function loginUser(Request $request){
         $data = $request->only([
             'email',
             'password'
         ]);
 
-        $validator = $this->validator($data);
+        $validatorUser = Validator::make($data, [
+            'email' => ['email:filter', 'required'],
+            'password' => ['between:4,255', 'string', 'required']
+        ]);
 
-        if($validator->fails()){
-            return redirect()->route('login')
-            ->withInput()
-            ->withErrors($validator);
+        if($validatorUser->fails()){
+            $arrayLogin['erros'] = $validatorUser->errors();
+
+            return response()->json($arrayLogin, 422); 
         }
 
         if(Auth::attempt($data)){
-            return redirect()->route('home');
+            return response()->json(['acesso' => true], 200);
         }else{
-            $validator->errors()->add('password', 'Email e/ou senha errados.');
+            $validatorUser->errors()->add('password', 'Email e/ou senha errados.');
 
-            return redirect()->route('login')
-            ->withErrors($validator)
-            ->withInput();
+            $arrayLogin['erros'] = $validatorUser->errors();
+            return response()->json($arrayLogin, 422); 
         }
         
     }
@@ -49,14 +56,76 @@ class UsersController extends Controller
         $validator = $this->validator($data);
 
         if($validator->fails()){
-            return redirect()->route('login')
-            ->withErrors($validator)
-            ->withInput();
+            $array['error'] = $validator->errors();
+
+            return response()->json($array, 422); 
         }
 
         $user = $this->create($data);
         Auth::login($user);
-        return redirect()->route('home');
+    }
+
+    public function getEdit($id){
+        $user = User::findOrFail($id);
+
+        return response()->json($user);
+    }
+    
+    public function edit($id, Request $request){
+        $user = User::find($id);
+
+        if(!$user){
+            return response()->json([
+                'erro' => 'Usuário não encontrado!'
+            ], 422);
+        }
+
+        $data = $request->only([
+            'name',
+            'email',
+            'password',
+            'pasword_confirmation'
+        ]);
+
+        if($data['name'] !== $user['name']){
+            $editValidator = Validator::make($data, [
+                'name' => ['required', 'string', 'max:255']
+            ]);
+            if($editValidator->fails()){
+                $array['erro'] = $editValidator->errors();
+                return response()->json($array, 422);
+            }
+            $user->name = $data['name'];
+        }
+
+        if($data['email'] !== $user['email']){
+            $editValidator = Validator::make($data, [
+                'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users']
+            ]);
+            if($editValidator->fails()){
+                $array['erro'] = $editValidator->errors();
+                return response()->json($array, 422);
+            }
+            $user->email = $data['email'];
+        }
+
+        if($data['password']->isNotEmpty()){
+            if($data['password'] !== $user['password']){
+                $editValidator = Validator::make($data, [
+                'email' => ['required', 'string', 'between:4,255', 'confirmed']
+                ]);
+                if($editValidator->fails()){
+                    $array['erro'] = $editValidator->errors();
+                    return response()->json($array, 422);
+                }
+                $user->password = $data['password'];
+            }
+        }
+        
+        $user->save();
+
+        return response()->json();
+
     }
 
     public function destroy($id){
@@ -65,7 +134,9 @@ class UsersController extends Controller
 
         Auth::logout();
         
-        return redirect()->route('login');
+        return response()->json([
+            'deletar' => true
+        ]);
     }
 
     protected function validator(array $data)

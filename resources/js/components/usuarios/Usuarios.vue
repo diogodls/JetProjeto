@@ -15,7 +15,7 @@
                     <th>ID</th> 
                     <th>Nome</th> 
                     <th>Email</th> 
-                
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,8 +24,8 @@
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>
-                        <a href="">Editar</a>
-                         <button class="button is-danger" @click="deleteUser(user.id)">Excluir Usuário</button>
+                        <button class="button is-info" @click="editUser(user.id)">Editar Usuário</button>
+                        <button class="button is-danger" @click="deleteUser(user.id)">Excluir Usuário</button>
                     </td> 
                 </tr>
             </tbody>
@@ -52,7 +52,6 @@ export default {
         getUsers(){
             axios.get("http://127.0.0.1:8000/api/users")
             .then((response) => {
-                console.log(response)
                 this.users = response.data
             });
         },
@@ -60,9 +59,14 @@ export default {
             let resultado = confirm('Você deseja mesmo excluir o usuário?');
             if(resultado){
                 axios.delete(`/api/users/${id}`)
-                this.getUsers()
+                .then(response =>{
+                    this.$router.push({path: '/login'})
+                })
             }
             
+        },
+        editUser(id){
+            this.$router.push({path: `editar_usuario/${id}`})
         }
     },
     created(){

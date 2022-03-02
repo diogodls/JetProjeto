@@ -26,7 +26,9 @@ class ShirtsController extends Controller
         $validator = $this->validator($data);
 
         if($validator->fails()){
-            return redirect()->route('home');
+            $array['erros'] = $validator->errors();
+
+            return response()->json($array, 422);
         }
 
         $shirt = new Shirt;
@@ -36,7 +38,9 @@ class ShirtsController extends Controller
         $shirt->brand = $request['brand'];
         $shirt->save();
 
-        return redirect()->route('home');
+        return response()->json([
+            'criado' => true
+        ]);
     }
 
     public function seeShirt($id){
