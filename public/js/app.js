@@ -2595,6 +2595,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2621,10 +2624,17 @@ __webpack_require__.r(__webpack_exports__);
     postUser: function postUser() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/user/".concat(this.userId)).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/user/".concat(this.userId), this.userInfo).then(function (response) {
         _this2.$router.push({
           path: '/usuarios'
         });
+      })["catch"](function (error) {
+        _this2.erros = error.response.data.erro;
+      });
+    },
+    voltar: function voltar() {
+      this.$router.push({
+        path: '/usuarios'
       });
     }
   },
@@ -2889,7 +2899,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.infocard{\r\n    padding: 20px;\n}\n.shirt-list{\r\n    max-height: 432px;\r\n    overflow-y: auto;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.infocard{\n    padding: 20px;\n}\n.shirt-list{\n    max-height: 432px;\n    overflow-y: auto;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2913,7 +2923,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.form{\r\n    display: flex;\r\n    flex-flow: column;\r\n    margin-bottom: 15px;\r\n    padding: 20px;\n}\nlabel{\r\n    margin-bottom: 15px;\r\n    margin-top: 5px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.form{\n    display: flex;\n    flex-flow: column;\n    margin-bottom: 15px;\n    padding: 20px;\n}\nlabel{\n    margin-bottom: 15px;\n    margin-top: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4383,11 +4393,7 @@ var render = function () {
                   staticClass: "navbar-item",
                   attrs: { to: { name: "dashboard" } },
                 },
-                [
-                  _vm._v(
-                    "\r\n                    Dashboard\r\n                "
-                  ),
-                ]
+                [_vm._v("\n                    Dashboard\n                ")]
               ),
               _vm._v(" "),
               _c(
@@ -4398,7 +4404,7 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\r\n                    Minhas camisetas\r\n                "
+                    "\n                    Minhas camisetas\n                "
                   ),
                 ]
               ),
@@ -4411,7 +4417,7 @@ var render = function () {
                 },
                 [
                   _vm._v(
-                    "\r\n                    Meus usuários\r\n                "
+                    "\n                    Meus usuários\n                "
                   ),
                 ]
               ),
@@ -5034,27 +5040,29 @@ var render = function () {
           "div",
           { staticClass: "container card mt-5 infocard" },
           [
-            _c("p", [
+            _c("p", { staticClass: "mb-3" }, [
               _vm._v("Modelo da camiseta: " + _vm._s(_vm.shirtsInfo.modelo)),
             ]),
             _vm._v(" "),
-            _c("p", [
+            _c("p", { staticClass: "mb-3" }, [
               _vm._v("Marca da camiseta: " + _vm._s(_vm.shirtsInfo.brand)),
             ]),
             _vm._v(" "),
-            _c("p", [
+            _c("p", { staticClass: "mb-3" }, [
               _vm._v(
                 "Descrição da camiseta: " + _vm._s(_vm.shirtsInfo.description)
               ),
             ]),
             _vm._v(" "),
-            _c("p", [
+            _c("p", { staticClass: "mb-3" }, [
               _vm._v(
                 "Número de pesquisa da camiseta: " + _vm._s(_vm.shirtsInfo.id)
               ),
             ]),
             _vm._v(" "),
-            _c("p", [_vm._v("Preço: R$ " + _vm._s(_vm.shirtsInfo.price))]),
+            _c("p", { staticClass: "mb-3" }, [
+              _vm._v("Preço: R$ " + _vm._s(_vm.shirtsInfo.price)),
+            ]),
             _vm._v(" "),
             _c(
               "router-link",
@@ -5097,13 +5105,17 @@ var render = function () {
     _c("div", { staticClass: "form" }, [
       _c("h1", { staticClass: "title" }, [_vm._v("JetCamisas")]),
       _vm._v(" "),
-      _c(
-        "ul",
-        _vm._l(_vm.erros, function (erro, index) {
-          return _c("li", { key: index }, [_vm._v(_vm._s(erro[0]))])
-        }),
-        0
-      ),
+      _vm.erros
+        ? _c("div", { staticClass: "notification is-danger" }, [
+            _c(
+              "ul",
+              _vm._l(_vm.erros, function (erro, index) {
+                return _c("li", { key: index }, [_vm._v(_vm._s(erro[0]))])
+              }),
+              0
+            ),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("label", { attrs: { for: "email" } }, [_vm._v("Digite o seu nome:")]),
       _vm._v(" "),
@@ -5116,6 +5128,7 @@ var render = function () {
             expression: "userInfo.name",
           },
         ],
+        staticClass: "input mb-3",
         attrs: { type: "text", name: "name" },
         domProps: { value: _vm.userInfo.name },
         on: {
@@ -5139,6 +5152,7 @@ var render = function () {
             expression: "userInfo.email",
           },
         ],
+        staticClass: "input mb-3",
         attrs: { type: "text", name: "email" },
         domProps: { value: _vm.userInfo.email },
         on: {
@@ -5155,17 +5169,63 @@ var render = function () {
         _vm._v("Digite sua senha:"),
       ]),
       _vm._v(" "),
-      _c("input", { attrs: { type: "password", name: "password" } }),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.userInfo.password,
+            expression: "userInfo.password",
+          },
+        ],
+        staticClass: "input mb-3",
+        attrs: { type: "password", name: "password" },
+        domProps: { value: _vm.userInfo.password },
+        on: {
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.userInfo, "password", $event.target.value)
+          },
+        },
+      }),
       _vm._v(" "),
       _c("label", { attrs: { for: "password" } }, [
         _vm._v("Digite novamente sua senha:"),
       ]),
       _vm._v(" "),
       _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.userInfo.password_confirmation,
+            expression: "userInfo.password_confirmation",
+          },
+        ],
+        staticClass: "input mb-3",
         attrs: { type: "password", name: "password_confirmation" },
+        domProps: { value: _vm.userInfo.password_confirmation },
+        on: {
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.userInfo, "password_confirmation", $event.target.value)
+          },
+        },
       }),
       _vm._v(" "),
-      _c("input", { attrs: { type: "submit", value: "Entrar" } }),
+      _c("input", {
+        staticClass: "button",
+        attrs: { type: "submit", value: "Enviar" },
+        on: { click: _vm.postUser },
+      }),
+    ]),
+    _vm._v(" "),
+    _c("button", { staticClass: "button", on: { click: _vm.voltar } }, [
+      _vm._v("Voltar"),
     ]),
   ])
 }

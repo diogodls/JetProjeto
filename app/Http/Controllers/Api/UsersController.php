@@ -84,10 +84,10 @@ class UsersController extends Controller
             'name',
             'email',
             'password',
-            'pasword_confirmation'
+            'password_confirmation'
         ]);
 
-        if($data['name'] !== $user['name']){
+        if($data['name'] != $user->name){
             $editValidator = Validator::make($data, [
                 'name' => ['required', 'string', 'max:255']
             ]);
@@ -98,7 +98,7 @@ class UsersController extends Controller
             $user->name = $data['name'];
         }
 
-        if($data['email'] !== $user['email']){
+        if($data['email'] != $user->email){
             $editValidator = Validator::make($data, [
                 'email' => ['required', 'string', 'email:filter', 'max:255', 'unique:users']
             ]);
@@ -109,16 +109,16 @@ class UsersController extends Controller
             $user->email = $data['email'];
         }
 
-        if($data['password']->isNotEmpty()){
-            if($data['password'] !== $user['password']){
+        if($data['password'] != ''){
+            if($data['password'] != $user->password){
                 $editValidator = Validator::make($data, [
-                'email' => ['required', 'string', 'between:4,255', 'confirmed']
+                    'password' => ['required', 'string', 'between:4,255', 'confirmed']
                 ]);
                 if($editValidator->fails()){
                     $array['erro'] = $editValidator->errors();
                     return response()->json($array, 422);
                 }
-                $user->password = $data['password'];
+                $user->password = Hash::make($data['password']);
             }
         }
         

@@ -3,26 +3,29 @@
       <div class="form">
         <h1 class="title">JetCamisas</h1>
 
-        <ul>
-          <li v-for="(erro, index) in erros" :key="index">{{erro[0]}}</li>
-        </ul>
+        <div class="notification is-danger" v-if="erros">
+            <ul>
+                <li v-for="(erro, index) in erros" :key="index">{{erro[0]}}</li>
+            </ul>
+        </div>
 
         <label for="email">Digite o seu nome:</label>
-        <input type="text" name="name" v-model="userInfo.name">
+        <input class="input mb-3" type="text" name="name" v-model="userInfo.name">
 
         <label for="email">Digite o seu email:</label>
-        <input type="text" name="email" v-model="userInfo.email">
+        <input class="input mb-3" type="text" name="email" v-model="userInfo.email">
 
         <label for="password">Digite sua senha:</label>
-        <input type="password" name="password">
+        <input class="input mb-3" type="password" name="password" v-model="userInfo.password">
 
         <label for="password">Digite novamente sua senha:</label>
-        <input type="password" name="password_confirmation">
+        <input class="input mb-3" type="password" name="password_confirmation" v-model="userInfo.password_confirmation">
 
-        <input type="submit" value="Entrar">
+        <input type="submit" value="Enviar" class="button" @click="postUser">
       </div>
 
-  </div>
+      <button class="button" @click="voltar">Voltar</button>
+  </div>    
 </template>
 
 <script>
@@ -49,10 +52,16 @@ export default {
             })
         },
         postUser(){
-            axios.post(`/api/user/${this.userId}`)
+            axios.post(`/api/user/${this.userId}`, this.userInfo)
             .then(response =>{
                 this.$router.push({path: '/usuarios'})
             })
+            .catch(error  =>{
+                this.erros = error.response.data.erro
+            })
+        },
+        voltar(){
+            this.$router.push({path: '/usuarios'})
         }
     },
     created(){
