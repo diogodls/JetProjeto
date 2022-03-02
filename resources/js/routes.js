@@ -6,6 +6,7 @@ import EditarUsuario from "./components/usuarios/EditarUsuario.vue";
 import Camisetas from "./components/camisetas/Camisetas.vue";
 import NovaCamiseta from "./components/camisetas/NovaCamiseta.vue";
 import VerCamiseta from "./components/camisetas/VerCamiseta.vue";
+import EditarCamiseta from "./components/camisetas/EditarCamiseta.vue"
 
 export default {
     mode: 'history',
@@ -41,12 +42,17 @@ export default {
         {
             path:'/nova_camiseta',
             component: NovaCamiseta,
-            name:'nova-camiseta'
+            name:'nova_camiseta'
         },
         {
             path:'/ver_camiseta/:id',
             component: VerCamiseta,
-            name:'ver-camiseta'
+            name:'ver_camiseta'
+        },
+        {
+            path:'/editar_camiseta/:id',
+            component: EditarCamiseta,
+            name:'editar_camiseta'
         },
         {
             path:'/editar_usuario/:id',

@@ -48,6 +48,72 @@ class ShirtsController extends Controller
 
         return response()->json($shirt);
     }
+    
+    public function editShirt($id, Request $request){
+        $shirt = Shirt::find($id);
+
+        if(!$shirt){
+            return response()->json([
+                'erro' => 'Camiseta não encontrada!'
+            ], 422);
+        }
+
+        $data = $request->only([
+            'modelo',
+            'description',
+            'price',
+            'brand'
+        ]);
+
+        if($data['modelo'] != $shirt->modelo){
+            $editValidator = Validator::make($data, [
+                'modelo' => ['required', 'string', 'max:255']
+            ]);
+            if($editValidator->fails()){
+                $array['erro'] = $editValidator->errors();
+                return response()->json($array, 422);
+            }
+            $shirt->modelo = $data['modelo'];
+        }
+
+        if($data['description'] != $shirt->description){
+            $editValidator = Validator::make($data, [
+                'description' => ['required', 'string', 'max:255']
+            ]);
+            if($editValidator->fails()){
+                $array['erro'] = $editValidator->errors();
+                return response()->json($array, 422);
+            }
+            $shirt->description = $data['description'];
+        }
+
+        if($data['price'] != $shirt->price){
+            $editValidator = Validator::make($data, [
+                'price' => ['required', 'numeric']
+            ]);
+            if($editValidator->fails()){
+                $array['erro'] = $editValidator->errors();
+                return response()->json($array, 422);
+            }
+            $shirt->price = $data['price'];
+        }
+
+        if($data['brand'] != $shirt->brand){
+            $editValidator = Validator::make($data, [
+                'brand' => ['required', 'string', 'max:255']
+            ]);
+            if($editValidator->fails()){
+                $array['erro'] = $editValidator->errors();
+                return response()->json($array, 422);
+            }
+            $shirt->brand = $data['brand'];
+        }
+        
+        $shirt->save();
+
+        return response()->json();
+
+    }
 
     public function destroy($id){
         $shirt = Shirt::find($id);

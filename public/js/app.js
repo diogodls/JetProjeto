@@ -2372,6 +2372,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2400,6 +2401,118 @@ __webpack_require__.r(__webpack_exports__);
         axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"]("/api/camiseta/".concat(id));
         this.getShirt();
       }
+    },
+    editShirt: function editShirt(id) {
+      this.$router.push({
+        path: "/editar_camiseta/".concat(id)
+      });
+    }
+  },
+  created: function created() {
+    this.getShirt();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      shirtsInfo: {
+        modelo: '',
+        description: '',
+        price: 0,
+        brand: ''
+      },
+      shirtId: this.$route.params.id,
+      textcontador: 0,
+      erros: null
+    };
+  },
+  methods: {
+    getShirt: function getShirt() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/camiseta/".concat(this.shirtId)).then(function (response) {
+        _this.shirtsInfo.modelo = response.data.modelo;
+        _this.shirtsInfo.description = response.data.description;
+        _this.shirtsInfo.price = response.data.price;
+        _this.shirtsInfo.brand = response.data.brand;
+      });
+    },
+    putShirt: function putShirt() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/camiseta/".concat(this.shirtId), this.shirtsInfo).then(function (response) {
+        _this2.$router.push({
+          path: '/camisetas'
+        });
+      })["catch"](function (error) {
+        _this2.erros = error.response.data.erro;
+      });
+    },
+    voltar: function voltar() {
+      this.$router.push({
+        path: '/camisetas'
+      });
+    },
+    contador: function contador() {
+      this.textcontador = this.shirtsInfo.description.length;
     }
   },
   created: function created() {
@@ -2621,10 +2734,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.userInfo.email = response.data.email;
       });
     },
-    postUser: function postUser() {
+    putUser: function putUser() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/user/".concat(this.userId), this.userInfo).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/user/".concat(this.userId), this.userInfo).then(function (response) {
         _this2.$router.push({
           path: '/usuarios'
         });
@@ -2786,6 +2899,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_camisetas_Camisetas_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/camisetas/Camisetas.vue */ "./resources/js/components/camisetas/Camisetas.vue");
 /* harmony import */ var _components_camisetas_NovaCamiseta_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/camisetas/NovaCamiseta.vue */ "./resources/js/components/camisetas/NovaCamiseta.vue");
 /* harmony import */ var _components_camisetas_VerCamiseta_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/camisetas/VerCamiseta.vue */ "./resources/js/components/camisetas/VerCamiseta.vue");
+/* harmony import */ var _components_camisetas_EditarCamiseta_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/camisetas/EditarCamiseta.vue */ "./resources/js/components/camisetas/EditarCamiseta.vue");
+
 
 
 
@@ -2820,11 +2935,15 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     path: '/nova_camiseta',
     component: _components_camisetas_NovaCamiseta_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    name: 'nova-camiseta'
+    name: 'nova_camiseta'
   }, {
     path: '/ver_camiseta/:id',
     component: _components_camisetas_VerCamiseta_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    name: 'ver-camiseta'
+    name: 'ver_camiseta'
+  }, {
+    path: '/editar_camiseta/:id',
+    component: _components_camisetas_EditarCamiseta_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+    name: 'editar_camiseta'
   }, {
     path: '/editar_usuario/:id',
     component: _components_usuarios_EditarUsuario_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -3774,6 +3893,45 @@ component.options.__file = "resources/js/components/camisetas/Camisetas.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/camisetas/EditarCamiseta.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/camisetas/EditarCamiseta.vue ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EditarCamiseta_vue_vue_type_template_id_313a0a54___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditarCamiseta.vue?vue&type=template&id=313a0a54& */ "./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=template&id=313a0a54&");
+/* harmony import */ var _EditarCamiseta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditarCamiseta.vue?vue&type=script&lang=js& */ "./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditarCamiseta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditarCamiseta_vue_vue_type_template_id_313a0a54___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EditarCamiseta_vue_vue_type_template_id_313a0a54___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/camisetas/EditarCamiseta.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/camisetas/NovaCamiseta.vue":
 /*!************************************************************!*\
   !*** ./resources/js/components/camisetas/NovaCamiseta.vue ***!
@@ -3996,6 +4154,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditarCamiseta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditarCamiseta.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditarCamiseta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/camisetas/NovaCamiseta.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/camisetas/NovaCamiseta.vue?vue&type=script&lang=js& ***!
@@ -4176,6 +4350,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Camisetas_vue_vue_type_template_id_cccd296c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Camisetas_vue_vue_type_template_id_cccd296c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Camisetas.vue?vue&type=template&id=cccd296c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/Camisetas.vue?vue&type=template&id=cccd296c&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=template&id=313a0a54&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=template&id=313a0a54& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditarCamiseta_vue_vue_type_template_id_313a0a54___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditarCamiseta_vue_vue_type_template_id_313a0a54___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditarCamiseta_vue_vue_type_template_id_313a0a54___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditarCamiseta.vue?vue&type=template&id=313a0a54& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=template&id=313a0a54&");
 
 
 /***/ }),
@@ -4754,7 +4945,7 @@ var render = function () {
           [
             _c("h1", [_vm._v("Camisetas")]),
             _vm._v(" "),
-            _c("router-link", { attrs: { to: { name: "nova-camiseta" } } }, [
+            _c("router-link", { attrs: { to: { name: "nova_camiseta" } } }, [
               _vm._v("Nova Camiseta"),
             ]),
           ],
@@ -4788,6 +4979,19 @@ var render = function () {
                       },
                     },
                     [_vm._v("Ver Informações")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button is-info",
+                      on: {
+                        click: function ($event) {
+                          return _vm.editShirt(shirt.id)
+                        },
+                      },
+                    },
+                    [_vm._v("Editar Camiseta")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -4830,6 +5034,184 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Ações")]),
       ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=template&id=313a0a54&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/EditarCamiseta.vue?vue&type=template&id=313a0a54& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("div", { staticClass: "form card" }, [
+        _vm.erros
+          ? _c("div", { staticClass: "notification is-danger" }, [
+              _c(
+                "ul",
+                _vm._l(_vm.erros, function (erro, index) {
+                  return _c("li", { key: index }, [_vm._v(_vm._s(erro[0]))])
+                }),
+                0
+              ),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Modelo:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.shirtsInfo.modelo,
+                expression: "shirtsInfo.modelo",
+              },
+            ],
+            attrs: { type: "text", name: "modelo" },
+            domProps: { value: _vm.shirtsInfo.modelo },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.shirtsInfo, "modelo", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "" } }, [_vm._v("Descrição:")]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.shirtsInfo.description,
+              expression: "shirtsInfo.description",
+            },
+          ],
+          staticStyle: { resize: "initial" },
+          attrs: { name: "description", maxlength: "255" },
+          domProps: { value: _vm.shirtsInfo.description },
+          on: {
+            keyup: _vm.contador,
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.shirtsInfo, "description", $event.target.value)
+            },
+          },
+        }),
+        _vm._v(
+          "\n      " + _vm._s(_vm.textcontador) + "/255\n          \n      "
+        ),
+        _c("div", { staticClass: "field mt-4" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Preço: R$")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.shirtsInfo.price,
+                expression: "shirtsInfo.price",
+              },
+            ],
+            attrs: { type: "number", step: "0.01", name: "price" },
+            domProps: { value: _vm.shirtsInfo.price },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.shirtsInfo, "price", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Marca:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.shirtsInfo.brand,
+                expression: "shirtsInfo.brand",
+              },
+            ],
+            staticStyle: { "margin-bottom": "10px" },
+            attrs: { type: "text", name: "brand" },
+            domProps: { value: _vm.shirtsInfo.brand },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.shirtsInfo, "brand", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { type: "submit", value: "Editar Camiseta" },
+          on: {
+            click: function ($event) {
+              return _vm.putShirt()
+            },
+          },
+        }),
+      ]),
+      _vm._v(" "),
+      _c("router-link", { attrs: { to: { name: "camisetas" } } }, [
+        _vm._v("Voltar"),
+      ]),
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "field" }, [
+      _c("label", { attrs: { for: "imagem" } }, [
+        _vm._v("Imagem da camiseta:"),
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control-file",
+        attrs: { type: "file", id: "imagem", name: "imagem" },
+      }),
     ])
   },
 ]
@@ -5220,7 +5602,7 @@ var render = function () {
       _c("input", {
         staticClass: "button",
         attrs: { type: "submit", value: "Enviar" },
-        on: { click: _vm.postUser },
+        on: { click: _vm.putUser },
       }),
     ]),
     _vm._v(" "),

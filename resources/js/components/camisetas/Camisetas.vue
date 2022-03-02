@@ -3,7 +3,7 @@
       <div>
             <header>
                 <h1>Camisetas</h1> 
-                <router-link :to="{name: 'nova-camiseta'}">Nova Camiseta</router-link>
+                <router-link :to="{name: 'nova_camiseta'}">Nova Camiseta</router-link>
             </header>
       </div>
 
@@ -24,6 +24,7 @@
                     <td>{{shirt.price}}</td>
                     <td>
                         <button class="button is-success" @click="seeShirt(shirt.id)">Ver Informações</button>
+                        <button class="button is-info" @click="editShirt(shirt.id)">Editar Camiseta</button>
                         <button class="button is-danger" @click="deleteShirt(shirt.id)">Excluir Camiseta</button>
                     </td> 
                 </tr>
@@ -63,6 +64,9 @@ export default {
                 this.getShirt()
             }
             
+        },
+        editShirt(id){
+            this.$router.push({path: `/editar_camiseta/${id}`})
         }
     },
     created(){

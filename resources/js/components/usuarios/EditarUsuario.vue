@@ -21,7 +21,7 @@
         <label for="password">Digite novamente sua senha:</label>
         <input class="input mb-3" type="password" name="password_confirmation" v-model="userInfo.password_confirmation">
 
-        <input type="submit" value="Enviar" class="button" @click="postUser">
+        <input type="submit" value="Enviar" class="button" @click="putUser">
       </div>
 
       <button class="button" @click="voltar">Voltar</button>
@@ -51,8 +51,8 @@ export default {
                 this.userInfo.email = response.data.email
             })
         },
-        postUser(){
-            axios.post(`/api/user/${this.userId}`, this.userInfo)
+        putUser(){
+            axios.put(`/api/user/${this.userId}`, this.userInfo)
             .then(response =>{
                 this.$router.push({path: '/usuarios'})
             })

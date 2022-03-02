@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ShirtsController;
 use App\Http\Controllers\Api\UsersController;
-use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +26,11 @@ Route::post('register', [UsersController::class, 'registerUser']);
 Route::get('camisetas', [ShirtsController::class, 'index']);
 Route::post('camisetas', [ShirtsController::class, 'createShirt']);
 Route::get('camiseta/{id}', [ShirtsController::class, 'seeShirt']);
+Route::put('camiseta/{id}', [ShirtsController::class, 'editShirt']);
 Route::delete('camiseta/{id}', [ShirtsController::class, 'destroy']);
 
 Route::get('users', [UsersController::class, 'index']);
 Route::get('user/{id}', [UsersController::class, 'getEdit']);
-Route::post('user/{id}', [UsersController::class, 'edit']);
+Route::put('user/{id}', [UsersController::class, 'edit']);
 Route::delete('users/{id}', [UsersController::class, 'destroy']);
 
