@@ -2403,12 +2403,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       shirts: [],
-      shirtsInfo: null
+      shirtsInfo: null,
+      search: ''
     };
   },
   methods: {
@@ -2436,6 +2444,21 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push({
         path: "/editar_camiseta/".concat(id)
       });
+    },
+    findShirt: function findShirt() {
+      var _this2 = this;
+
+      var cleanSearch = (this.search || '').trim();
+
+      if (!cleanSearch.length) {
+        this.getShirt();
+      }
+
+      if (cleanSearch !== null) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post("api/camiseta/".concat(cleanSearch)).then(function (response) {
+          _this2.shirts = response.data;
+        });
+      }
     }
   },
   created: function created() {
@@ -2849,12 +2872,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      users: []
+      users: [],
+      search: ''
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)(["email"])),
@@ -2883,6 +2913,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$router.push({
         path: "editar_usuario/".concat(id)
       });
+    },
+    findUser: function findUser() {
+      var _this3 = this;
+
+      var cleanSearch = (this.search || '').trim();
+
+      if (!cleanSearch.length) {
+        this.getUsers();
+      }
+
+      if (cleanSearch !== null) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().post("api/user/".concat(cleanSearch)).then(function (response) {
+          _this3.users = response.data;
+        });
+      }
     }
   },
   created: function created() {
@@ -4710,13 +4755,7 @@ var render = function () {
         attrs: { role: "navigation", "aria-label": "main navigation" },
       },
       [
-        _c("div", { staticClass: "navbar-brand" }, [
-          _c("h1", [
-            _c("a", { attrs: { href: "/" }, on: { click: _vm.clearEmail } }, [
-              _vm._v("JetCamisas"),
-            ]),
-          ]),
-        ]),
+        _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "navbar-menu" }, [
           _c(
@@ -4766,13 +4805,7 @@ var render = function () {
               _c("p", [_vm._v("Olá, " + _vm._s(_vm.user) + "!")]),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "navbar-item" }, [
-              _c(
-                "a",
-                { attrs: { href: "/logout" }, on: { click: _vm.clearEmail } },
-                [_vm._v("Sair")]
-              ),
-            ]),
+            _vm._m(1),
           ]),
         ]),
       ]
@@ -4786,7 +4819,24 @@ var render = function () {
     ),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "navbar-brand" }, [
+      _c("h1", [_c("a", { attrs: { href: "/" } }, [_vm._v("JetCamisas")])]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "navbar-item" }, [
+      _c("a", { attrs: { href: "/logout" } }, [_vm._v("Sair")]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -5077,18 +5127,56 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("div", [
-        _c(
-          "header",
-          [
-            _c("h1", [_vm._v("Camisetas")]),
+      _c("div", { staticClass: "mb-4" }, [
+        _c("header", [
+          _c("div", { staticClass: "columns container" }, [
+            _c(
+              "div",
+              { staticClass: "column is-10" },
+              [
+                _c("h1", [_vm._v("Camisetas")]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "button",
+                    attrs: { to: { name: "nova_camiseta" } },
+                  },
+                  [_vm._v("Nova Camiseta")]
+                ),
+              ],
+              1
+            ),
             _vm._v(" "),
-            _c("router-link", { attrs: { to: { name: "nova_camiseta" } } }, [
-              _vm._v("Nova Camiseta"),
+            _c("div", { staticClass: "column" }, [
+              _vm._v("\n                     Pesquisa por modelo: "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search,
+                    expression: "search",
+                  },
+                ],
+                staticClass: "input",
+                attrs: { type: "text", name: "search" },
+                domProps: { value: _vm.search },
+                on: {
+                  keyup: function ($event) {
+                    return _vm.findShirt()
+                  },
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  },
+                },
+              }),
             ]),
-          ],
-          1
-        ),
+          ]),
+        ]),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "shirt-list container" }, [
@@ -5773,7 +5861,41 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", [
+      _c("header", [
+        _c("div", { staticClass: "columns container" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "column" }, [
+            _vm._v("\n                     Pesquisa por nome: "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search,
+                  expression: "search",
+                },
+              ],
+              staticClass: "input",
+              attrs: { type: "text", name: "search" },
+              domProps: { value: _vm.search },
+              on: {
+                keyup: function ($event) {
+                  return _vm.findUser()
+                },
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search = $event.target.value
+                },
+              },
+            }),
+          ]),
+        ]),
+      ]),
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "shirt-list container" }, [
       _c("table", { staticClass: "table" }, [
@@ -5833,7 +5955,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("header", [_c("h1", [_vm._v("Usuários")])])])
+    return _c("div", { staticClass: "column is-10" }, [
+      _c("h1", [_vm._v("Usuários")]),
+    ])
   },
   function () {
     var _vm = this

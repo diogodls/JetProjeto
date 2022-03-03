@@ -28,7 +28,7 @@ class ShirtsController extends Controller
         if($validator->fails()){
             $array['erros'] = $validator->errors();
 
-            return response()->json($array, 422);
+            return response()->json($array, 400);
         }
 
         $shirt = new Shirt;
@@ -55,7 +55,7 @@ class ShirtsController extends Controller
         if(!$shirt){
             return response()->json([
                 'erro' => 'Camiseta não encontrada!'
-            ], 422);
+            ], 400);
         }
 
         $data = $request->only([
@@ -71,7 +71,7 @@ class ShirtsController extends Controller
             ]);
             if($editValidator->fails()){
                 $array['erro'] = $editValidator->errors();
-                return response()->json($array, 422);
+                return response()->json($array, 400);
             }
             $shirt->modelo = $data['modelo'];
         }
@@ -82,7 +82,7 @@ class ShirtsController extends Controller
             ]);
             if($editValidator->fails()){
                 $array['erro'] = $editValidator->errors();
-                return response()->json($array, 422);
+                return response()->json($array, 400);
             }
             $shirt->description = $data['description'];
         }
@@ -93,7 +93,7 @@ class ShirtsController extends Controller
             ]);
             if($editValidator->fails()){
                 $array['erro'] = $editValidator->errors();
-                return response()->json($array, 422);
+                return response()->json($array, 400);
             }
             $shirt->price = $data['price'];
         }
@@ -104,7 +104,7 @@ class ShirtsController extends Controller
             ]);
             if($editValidator->fails()){
                 $array['erro'] = $editValidator->errors();
-                return response()->json($array, 422);
+                return response()->json($array, 400);
             }
             $shirt->brand = $data['brand'];
         }
@@ -113,6 +113,12 @@ class ShirtsController extends Controller
 
         return response()->json();
 
+    }
+
+    public function find($id){
+        $shirt = Shirt::where('modelo', 'like', '%'.$id.'%')->get();
+        
+        return response()->json($shirt);
     }
 
     public function destroy($id){

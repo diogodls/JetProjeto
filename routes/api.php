@@ -27,10 +27,12 @@ Route::get('camisetas', [ShirtsController::class, 'index']);
 Route::post('camisetas', [ShirtsController::class, 'createShirt']);
 Route::get('camiseta/{id}', [ShirtsController::class, 'seeShirt']);
 Route::put('camiseta/{id}', [ShirtsController::class, 'editShirt']);
+Route::post('camiseta/{id}', [ShirtsController::class, 'find']);
 Route::delete('camiseta/{id}', [ShirtsController::class, 'destroy']);
 
 Route::get('users', [UsersController::class, 'index']);
 Route::get('user/{id}', [UsersController::class, 'getEdit']);
 Route::put('user/{id}', [UsersController::class, 'edit']);
+Route::post('user/{id}', [UsersController::class, 'find']);
 Route::delete('users/{id}', [UsersController::class, 'destroy']);
 

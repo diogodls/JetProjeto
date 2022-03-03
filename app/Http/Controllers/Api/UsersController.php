@@ -31,7 +31,7 @@ class UsersController extends Controller
         if($validatorUser->fails()){
             $arrayLogin['erros'] = $validatorUser->errors();
 
-            return response()->json($arrayLogin, 422); 
+            return response()->json($arrayLogin, 400); 
         }
 
         if(Auth::attempt($data)){
@@ -41,7 +41,7 @@ class UsersController extends Controller
             $validatorUser->errors()->add('password', 'Email e/ou senha errados.');
 
             $arrayLogin['erros'] = $validatorUser->errors();
-            return response()->json($arrayLogin, 422); 
+            return response()->json($arrayLogin, 400); 
         }
         
     }
@@ -59,7 +59,7 @@ class UsersController extends Controller
         if($validator->fails()){
             $array['error'] = $validator->errors();
 
-            return response()->json($array, 422); 
+            return response()->json($array, 400); 
         }
 
         $user = $this->create($data);
@@ -78,7 +78,7 @@ class UsersController extends Controller
         if(!$user){
             return response()->json([
                 'erro' => 'Usuário não encontrado!'
-            ], 422);
+            ], 400);
         }
 
         $data = $request->only([
@@ -94,7 +94,7 @@ class UsersController extends Controller
             ]);
             if($editValidator->fails()){
                 $array['erro'] = $editValidator->errors();
-                return response()->json($array, 422);
+                return response()->json($array, 400);
             }
             $user->name = $data['name'];
         }
@@ -105,7 +105,7 @@ class UsersController extends Controller
             ]);
             if($editValidator->fails()){
                 $array['erro'] = $editValidator->errors();
-                return response()->json($array, 422);
+                return response()->json($array, 400);
             }
             $user->email = $data['email'];
         }
@@ -117,7 +117,7 @@ class UsersController extends Controller
                 ]);
                 if($editValidator->fails()){
                     $array['erro'] = $editValidator->errors();
-                    return response()->json($array, 422);
+                    return response()->json($array, 400);
                 }
                 $user->password = Hash::make($data['password']);
             }
@@ -127,6 +127,12 @@ class UsersController extends Controller
 
         return response()->json();
 
+    }
+
+    public function find($id){
+        $user = User::where('name', 'like', '%'.$id.'%')->get();
+        
+        return response()->json($user);
     }
 
     public function destroy($id){

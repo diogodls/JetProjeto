@@ -1,9 +1,16 @@
 <template>
   <div>
-      <div>
+      <div class="mb-4">
             <header>
-                <h1>Camisetas</h1> 
-                <router-link :to="{name: 'nova_camiseta'}">Nova Camiseta</router-link>
+                <div class="columns container">
+                    <div class="column is-10">
+                        <h1>Camisetas</h1>
+                        <router-link class="button" :to="{name: 'nova_camiseta'}">Nova Camiseta</router-link>
+                    </div>
+                    <div class="column">
+                       Pesquisa por modelo: <input class="input" type="text" name="search" v-model="search" @keyup="findShirt()">
+                    </div>  
+                </div>
             </header>
       </div>
 
@@ -44,7 +51,8 @@ export default {
     data(){
         return{
             shirts: [],
-            shirtsInfo: null
+            shirtsInfo: null,
+            search: '',
         }
     },
     methods:{
@@ -67,6 +75,20 @@ export default {
         },
         editShirt(id){
             this.$router.push({path: `/editar_camiseta/${id}`})
+        },
+        findShirt(){
+            let cleanSearch = (this.search || '').trim()
+
+            if (!cleanSearch.length) {
+                this.getShirt()
+            }
+
+            if(cleanSearch !== null){
+                axios.post(`api/camiseta/${cleanSearch}`)
+                .then(response => {
+                    this.shirts = response.data
+                })
+            }
         }
     },
     created(){

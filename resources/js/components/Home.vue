@@ -2,7 +2,7 @@
 <div>
     <nav class="navbar is-active" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <h1><a href="/" @click="clearEmail">JetCamisas</a> </h1>
+            <h1><a href="/">JetCamisas</a> </h1>
         </div>
     
         <div class="navbar-menu">
@@ -25,7 +25,7 @@
                     <p>Olá, {{user}}!</p>
                 </div>
                 <div class="navbar-item">
-                    <a href="/logout" @click="clearEmail" >Sair</a>
+                    <a href="/logout" >Sair</a>
                 </div>                
             </div>
 

@@ -2,8 +2,14 @@
    <div>
       <div>
             <header>
-                <h1>Usuários</h1> 
-
+                 <div class="columns container">
+                    <div class="column is-10">
+                        <h1>Usuários</h1>
+                    </div>
+                    <div class="column">
+                       Pesquisa por nome: <input class="input" type="text" name="search" v-model="search" @keyup="findUser()">
+                    </div>  
+                </div>
             </header>
       </div>
       
@@ -46,7 +52,8 @@ import {mapState} from "vuex";
 export default {
     data(){
         return{
-            users: []
+            users: [],
+            search: ''
         }
     },
     computed:{
@@ -71,6 +78,20 @@ export default {
         },
         editUser(id){
             this.$router.push({path: `editar_usuario/${id}`})
+        },
+        findUser(){
+            let cleanSearch = (this.search || '').trim()
+
+            if (!cleanSearch.length) {
+                this.getUsers()
+            }
+
+            if(cleanSearch !== null){
+                axios.post(`api/user/${cleanSearch}`)
+                .then(response => {
+                    this.users = response.data
+                })
+            }
         }
     },
     created(){
