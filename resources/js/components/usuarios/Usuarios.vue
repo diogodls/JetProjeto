@@ -12,7 +12,6 @@
                 </div>
             </header>
       </div>
-      
 
       <div class="shirt-list container">
         <table class="table">
@@ -37,10 +36,6 @@
             </tbody>
             
         </table>
-      </div>
-
-      <div>
-        
       </div>
   </div>
 </template>
@@ -74,7 +69,6 @@ export default {
                     this.$router.push({path: '/login'})
                 })
             }
-            
         },
         editUser(id){
             this.$router.push({path: `editar_usuario/${id}`})
