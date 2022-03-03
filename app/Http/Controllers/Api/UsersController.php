@@ -35,7 +35,8 @@ class UsersController extends Controller
         }
 
         if(Auth::attempt($data)){
-            return response()->json(['acesso' => true], 200);
+            $user = User::where('email', $data['email'])->get();
+            return response()->json($user, 200);
         }else{
             $validatorUser->errors()->add('password', 'Email e/ou senha errados.');
 

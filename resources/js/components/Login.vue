@@ -78,13 +78,15 @@ export default {
     loginUser(){
       axios.post("api/login", this.infoLogin)
       .then(response => {
+        this.$store.commit("changeUser", response.data[0].name)
+        this.$store.commit("changeEmail", response.data[0].email)
         if(response.status == 200){
           this.$router.push({path: '/'})
         }
       })
       .catch(error =>{
          this.erros = error.response.data.erros
-      })
+      });
     },
     registerUser(){
       axios.post("api/register", this.infoRegister)
@@ -95,7 +97,9 @@ export default {
       })
       .catch((error) =>{
           this.erros = error.response.data.error
-      })
+      });
+      this.$store.commit("changeUser", this.infoRegister.name)
+      this.$store.commit("changeEmail", this.infoRegister.email)
     }
   },
   props:[

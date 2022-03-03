@@ -25,7 +25,7 @@
                     <td>{{user.email}}</td>
                     <td>
                         <button class="button is-info" @click="editUser(user.id)">Editar Usuário</button>
-                        <button class="button is-danger" @click="deleteUser(user.id)">Excluir Usuário</button>
+                        <button v-if="email != user.email" class="button is-danger" @click="deleteUser(user.id)">Excluir Usuário</button>
                     </td> 
                 </tr>
             </tbody>
@@ -41,12 +41,16 @@
 
 <script>
 import axios from "axios";
+import {mapState} from "vuex";
 
 export default {
     data(){
         return{
             users: []
         }
+    },
+    computed:{
+        ...mapState(["email"])
     },
     methods:{
         getUsers(){

@@ -2,7 +2,7 @@
 <div>
     <nav class="navbar is-active" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <h1><a href="/">JetCamisas</a> </h1>
+            <h1><a href="/" @click="clearEmail">JetCamisas</a> </h1>
         </div>
     
         <div class="navbar-menu">
@@ -22,7 +22,10 @@
     
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <a href="/logout" >Sair</a>
+                    <p>Olá, {{user}}!</p>
+                </div>
+                <div class="navbar-item">
+                    <a href="/logout" @click="clearEmail" >Sair</a>
                 </div>                
             </div>
 
@@ -37,11 +40,34 @@
 </template>
 
 <script>
-export default {
+import {mapState} from "vuex";
 
+export default {
+    data(){
+        return{
+            userInfo: {
+
+            }
+        }
+    },
+    computed:{
+        ...mapState(["user"])
+    },
+    methods:{
+        clearEmail(){
+            this.$store.commit("changeEmail", null)
+        }
+    },
+    created(){
+
+    }
 }
 </script>
 
 <style>
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
 
 </style>
