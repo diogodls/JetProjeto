@@ -54,6 +54,8 @@ export default {
         putUser(){
             axios.put(`/api/user/${this.userId}`, this.userInfo)
             .then(response =>{
+                this.$store.commit("changeUser", this.userInfo.name)
+                this.$store.commit("changeEmail", this.userInfo.email)
                 this.$router.push({path: '/usuarios'})
             })
             .catch(error  =>{

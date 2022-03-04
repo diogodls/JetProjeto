@@ -19,6 +19,7 @@ class CreateShirtsTable extends Migration
             $table->text('description');
             $table->string('price');
             $table->string('brand');
+            $table->string('image');
             $table->timestamps();
         });
     }

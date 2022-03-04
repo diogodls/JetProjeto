@@ -50,19 +50,25 @@ export default {
                 modelo: '',
                 description: '',
                 price: '',
-                brand: '',
-                image: ''
+                brand: ''
             },
             textcontador: 0,
-            erros: null
+            erros: null,
+            image: null
         }
     },
     methods:{
         submit(){
             const formData = new FormData
-            this.shirt.image = formData.set('image', this.shirt.image)
+            formData.append('image', this.image)
+            formData.append('modelo', this.shirt.modelo)
+            formData.append('description', this.shirt.description)
+            formData.append('price', this.shirt.price)
+            formData.append('brand', this.shirt.brand)
 
-            axios.post("/api/camisetas", this.shirt)
+            axios.post("/api/camisetas", formData, {headers:{
+                'Content-Type': 'multipart/form-data'
+            }})
             .then(response => {
                 this.$router.push({name: "camisetas"})
             })
@@ -72,7 +78,7 @@ export default {
             
         },
         onChange(e){
-            this.shirt.image = e.target.files[0];
+            this.image = e.target.files[0];
         },
         contador(){
             this.textcontador = this.shirt.description.length

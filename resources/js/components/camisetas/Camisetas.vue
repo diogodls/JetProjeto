@@ -28,7 +28,7 @@
                 <tr v-for="(shirt, index) in shirts" :key="index">
                     <td>{{shirt.id}}</td>
                     <td>{{shirt.modelo}}</td>
-                    <td>{{shirt.price}}</td>
+                    <td>R$ {{shirt.price}}</td>
                     <td>
                         <button class="button is-success" @click="seeShirt(shirt.id)">Ver Informações</button>
                         <button class="button is-info" @click="editShirt(shirt.id)">Editar Camiseta</button>

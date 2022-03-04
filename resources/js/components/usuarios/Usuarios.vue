@@ -29,8 +29,8 @@
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
                     <td>
-                        <button class="button is-info" @click="editUser(user.id)">Editar Usuário</button>
-                        <button v-if="email != user.email" class="button is-danger" @click="deleteUser(user.id)">Excluir Usuário</button>
+                        <button v-if="email == user.email" class="button is-info" @click="editUser(user.id)">Editar Usuário</button>
+                        <button v-if="email == user.email" class="button is-danger" @click="deleteUser(user.id)">Excluir Usuário</button>
                     </td> 
                 </tr>
             </tbody>

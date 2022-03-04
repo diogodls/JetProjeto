@@ -17,6 +17,7 @@ class ShirtsController extends Controller
 
     public function createShirt(Request $request){
         $data = $request->only([
+            'image',
             'modelo',
             'description',
             'price',
@@ -30,12 +31,15 @@ class ShirtsController extends Controller
 
             return response()->json($array, 400);
         }
+        
+        $image = $request->file('image')->store('images', 'public');
 
         $shirt = new Shirt;
         $shirt->modelo = $request['modelo'];
         $shirt->description = $request['description'];
         $shirt->price = $request['price'];
         $shirt->brand = $request['brand'];
+        $shirt->image = asset(Storage::url($image));
         $shirt->save();
 
         return response()->json([
@@ -135,7 +139,7 @@ class ShirtsController extends Controller
             'description' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric'],
             'brand' => ['required', 'string', 'max:255'],
-            'brand' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'mimes:png,jpg,jpeg', 'image']
         ]);
 
     }

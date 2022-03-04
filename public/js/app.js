@@ -2530,7 +2530,8 @@ __webpack_require__.r(__webpack_exports__);
         modelo: '',
         description: '',
         price: 0,
-        brand: ''
+        brand: '',
+        image: ''
       },
       shirtId: this.$route.params.id,
       textcontador: 0,
@@ -2551,13 +2552,26 @@ __webpack_require__.r(__webpack_exports__);
     putShirt: function putShirt() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/camiseta/".concat(this.shirtId), this.shirtsInfo).then(function (response) {
+      var formData = new FormData();
+      formData.append('image', this.shirtsInfo.image);
+      formData.append('modelo', this.shirtsInfo.modelo);
+      formData.append('description', this.shirtsInfo.description);
+      formData.append('price', this.shirtsInfo.price);
+      formData.append('brand', this.shirtsInfo.brand);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/camiseta/".concat(this.shirtId), formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         _this2.$router.push({
           path: '/camisetas'
         });
       })["catch"](function (error) {
         _this2.erros = error.response.data.erro;
       });
+    },
+    onChange: function onChange(e) {
+      this.shirtsInfo.image = e.target.files[0];
     },
     voltar: function voltar() {
       this.$router.push({
@@ -2639,11 +2653,11 @@ __webpack_require__.r(__webpack_exports__);
         modelo: '',
         description: '',
         price: '',
-        brand: '',
-        image: ''
+        brand: ''
       },
       textcontador: 0,
-      erros: null
+      erros: null,
+      image: null
     };
   },
   methods: {
@@ -2651,8 +2665,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var formData = new FormData();
-      this.shirt.image = formData.set('image', this.shirt.image);
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/camisetas", this.shirt).then(function (response) {
+      formData.append('image', this.image);
+      formData.append('modelo', this.shirt.modelo);
+      formData.append('description', this.shirt.description);
+      formData.append('price', this.shirt.price);
+      formData.append('brand', this.shirt.brand);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/camisetas", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         _this.$router.push({
           name: "camisetas"
         });
@@ -2661,7 +2683,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     onChange: function onChange(e) {
-      this.shirt.image = e.target.files[0];
+      this.image = e.target.files[0];
     },
     contador: function contador() {
       this.textcontador = this.shirt.description.length;
@@ -2697,6 +2719,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2711,6 +2735,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/camiseta/".concat(this.shirtId)).then(function (response) {
         _this.shirtsInfo = response.data;
+        console.log(response.data);
       });
     }
   },
@@ -2791,6 +2816,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default().put("/api/user/".concat(this.userId), this.userInfo).then(function (response) {
+        _this2.$store.commit("changeUser", _this2.userInfo.name);
+
+        _this2.$store.commit("changeEmail", _this2.userInfo.email);
+
         _this2.$router.push({
           path: '/usuarios'
         });
@@ -2831,11 +2860,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3182,6 +3206,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.form{\n    display: flex;\n    flex-flow: column;\n    margin-bottom: 15px;\n    padding: 20px;\n}\nlabel{\n    margin-bottom: 15px;\n    margin-top: 5px;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.shirtImage{\n    width: 200px;\n    height: 200px;\n    margin-bottom: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3618,6 +3666,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NovaCamiseta_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VerCamiseta_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./VerCamiseta.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VerCamiseta_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VerCamiseta_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -4157,15 +4235,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _VerCamiseta_vue_vue_type_template_id_0ae85e28___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VerCamiseta.vue?vue&type=template&id=0ae85e28& */ "./resources/js/components/camisetas/VerCamiseta.vue?vue&type=template&id=0ae85e28&");
 /* harmony import */ var _VerCamiseta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VerCamiseta.vue?vue&type=script&lang=js& */ "./resources/js/components/camisetas/VerCamiseta.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _VerCamiseta_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VerCamiseta.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _VerCamiseta_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _VerCamiseta_vue_vue_type_template_id_0ae85e28___WEBPACK_IMPORTED_MODULE_0__.render,
   _VerCamiseta_vue_vue_type_template_id_0ae85e28___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
@@ -4466,6 +4546,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_NovaCamiseta_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./NovaCamiseta.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/NovaCamiseta.vue?vue&type=style&index=0&lang=css&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_VerCamiseta_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./VerCamiseta.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/camisetas/VerCamiseta.vue?vue&type=style&index=0&lang=css&");
 
 
 /***/ }),
@@ -5191,7 +5284,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(shirt.modelo))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(shirt.price))]),
+                _c("td", [_vm._v("R$ " + _vm._s(shirt.price))]),
                 _vm._v(" "),
                 _c("td", [
                   _c(
@@ -5302,7 +5395,21 @@ var render = function () {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { attrs: { for: "imagem" } }, [
+            _vm._v("Imagem da camiseta:"),
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control-file",
+            attrs: { type: "file", id: "imagem", name: "imagem" },
+            on: {
+              change: function ($event) {
+                return _vm.onChange()
+              },
+            },
+          }),
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "field" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Modelo:")]),
@@ -5424,23 +5531,7 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("label", { attrs: { for: "imagem" } }, [
-        _vm._v("Imagem da camiseta:"),
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control-file",
-        attrs: { type: "file", id: "imagem", name: "imagem" },
-      }),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -5648,6 +5739,11 @@ var render = function () {
           "div",
           { staticClass: "container card mt-5 infocard" },
           [
+            _c("img", {
+              staticClass: "shirtImage",
+              attrs: { src: _vm.shirtsInfo.image, alt: "" },
+            }),
+            _vm._v(" "),
             _c("p", { staticClass: "mb-3" }, [
               _vm._v("Modelo da camiseta: " + _vm._s(_vm.shirtsInfo.modelo)),
             ]),
@@ -5912,20 +6008,22 @@ var render = function () {
               _c("td", [_vm._v(_vm._s(user.email))]),
               _vm._v(" "),
               _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "button is-info",
-                    on: {
-                      click: function ($event) {
-                        return _vm.editUser(user.id)
+                _vm.email == user.email
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "button is-info",
+                        on: {
+                          click: function ($event) {
+                            return _vm.editUser(user.id)
+                          },
+                        },
                       },
-                    },
-                  },
-                  [_vm._v("Editar Usuário")]
-                ),
+                      [_vm._v("Editar Usuário")]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
-                _vm.email != user.email
+                _vm.email == user.email
                   ? _c(
                       "button",
                       {
@@ -5946,8 +6044,6 @@ var render = function () {
         ),
       ]),
     ]),
-    _vm._v(" "),
-    _c("div"),
   ])
 }
 var staticRenderFns = [

@@ -10,7 +10,7 @@
 
         <div class="field">
             <label for="imagem">Imagem da camiseta:</label>
-            <input type="file" id="imagem" name="imagem" class="form-control-file">
+            <input type="file" id="imagem" name="imagem" class="form-control-file" @change="onChange()">
         </div>
 
         <div class="field">
@@ -49,6 +49,7 @@ export default {
                 description: '',
                 price: 0,
                 brand: '',
+                image: ''
             },
             shirtId: this.$route.params.id,
             textcontador: 0,
@@ -66,13 +67,25 @@ export default {
             })
         },
         putShirt(){
-            axios.put(`/api/camiseta/${this.shirtId}`, this.shirtsInfo)
+            const formData = new FormData
+            formData.append('image', this.shirtsInfo.image)
+            formData.append('modelo', this.shirtsInfo.modelo)
+            formData.append('description', this.shirtsInfo.description)
+            formData.append('price', this.shirtsInfo.price)
+            formData.append('brand', this.shirtsInfo.brand)
+
+            axios.put(`/api/camiseta/${this.shirtId}`, formData, {headers:{
+                'Content-Type': 'multipart/form-data'
+            }})
             .then(response =>{
                 this.$router.push({path: '/camisetas'})
             })
             .catch(error  =>{
                 this.erros = error.response.data.erro
             })
+        },
+        onChange(e){
+            this.shirtsInfo.image = e.target.files[0];
         },
         voltar(){
             this.$router.push({path: '/camisetas'})
